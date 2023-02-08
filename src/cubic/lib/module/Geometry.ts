@@ -5,7 +5,7 @@ export class Geometry {
   /**
    * 板ポリゴンの頂点情報を生成する
    * @example
-   * const planeData = gl3.Mesh.plane(2.0, 2.0, [1.0, 1.0, 1.0, 1.0]);
+   * const planeData = GL3.Geometry.plane(2.0, 2.0, [1.0, 1.0, 1.0, 1.0]);
    */
   static plane(width: number, height: number, color?: Color): iGeometryAttribute {
     const tc = color ?? new Color(1.0, 1.0, 1.0, 1.0);
@@ -40,7 +40,7 @@ export class Geometry {
   /**
    * 円（XY 平面展開）の頂点情報を生成する
    * @example
-   * const circleData = gl3.Mesh.circle(64, 1.0, [1.0, 1.0, 1.0, 1.0]);
+   * const circleData = GL3.Geometry.circle(64, 1.0, [1.0, 1.0, 1.0, 1.0]);
    */
   static circle(split: number, rad: number, color?: Color): iGeometryAttribute {
     const tc = color ?? new Color(1.0, 1.0, 1.0, 1.0);
@@ -74,7 +74,7 @@ export class Geometry {
   /**
    * キューブの頂点情報を生成する
    * @example
-   * const cubeData = gl3.Mesh.cube(2.0, [1.0, 1.0, 1.0, 1.0]);
+   * const cubeData = GL3.Geometry.cube(2.0, [1.0, 1.0, 1.0, 1.0]);
    */
   static cube(side: number, color?: Color): iGeometryAttribute {
     const tc = color ?? new Color(1.0, 1.0, 1.0, 1.0);
@@ -118,7 +118,7 @@ export class Geometry {
   /**
    * 三角錐の頂点情報を生成する
    * @example
-   * const coneData = gl3.Mesh.cone(64, 1.0, 2.0, [1.0, 1.0, 1.0, 1.0]);
+   * const coneData = GL3.Geometry.cone(64, 1.0, 2.0, [1.0, 1.0, 1.0, 1.0]);
    */
   static cone(split: number, rad: number, height: number, color?: Color): iGeometryAttribute {
     const tc = color ?? new Color(1.0, 1.0, 1.0, 1.0);
@@ -160,7 +160,7 @@ export class Geometry {
   /**
    * 円柱の頂点情報を生成する
    * @example
-   * const cylinderData = gl3.Mesh.cylinder(64, 0.5, 1.0, 2.0, [1.0, 1.0, 1.0, 1.0]);
+   * const cylinderData = GL3.Geometry.cylinder(64, 0.5, 1.0, 2.0, [1.0, 1.0, 1.0, 1.0]);
    */
   static cylinder(split: number, topRad: number, bottomRad: number, height: number, color?: Color): iGeometryAttribute {
     const tc = color ?? new Color(1.0, 1.0, 1.0, 1.0);
@@ -208,7 +208,7 @@ export class Geometry {
   /**
    * 球体の頂点情報を生成する
    * @example
-   * const sphereData = gl3.Mesh.sphere(64, 64, 1.0, [1.0, 1.0, 1.0, 1.0]);
+   * const sphereData = GL3.Geometry.sphere(64, 64, 1.0, [1.0, 1.0, 1.0, 1.0]);
    */
   static sphere(row: number, column: number, rad: number, color?: Color): iGeometryAttribute {
     const tc = color ?? new Color(1.0, 1.0, 1.0, 1.0);
@@ -247,7 +247,7 @@ export class Geometry {
   /**
    * トーラスの頂点情報を生成する
    * @example
-   * const torusData = gl3.Mesh.torus(64, 64, 0.25, 0.75, [1.0, 1.0, 1.0, 1.0]);
+   * const torusData = GL3.Geometry.torus(64, 64, 0.25, 0.75, [1.0, 1.0, 1.0, 1.0]);
    */
   static torus(row: number, column: number, irad: number, orad: number, color?: Color): iGeometryAttribute {
     const tc = color ?? new Color(1.0, 1.0, 1.0, 1.0);
@@ -292,7 +292,7 @@ export class Geometry {
   /**
    * 正二十面体の頂点情報を生成する
    * @example
-   * const icosaData = gl3.Mesh.icosahedron(1.0, [1.0, 1.0, 1.0, 1.0]);
+   * const icosaData = GL3.Geometry.icosahedron(1.0, [1.0, 1.0, 1.0, 1.0]);
    */
   static icosahedron(rad: number, color?: Color): iGeometryAttribute {
     const tc = color ?? new Color(1.0, 1.0, 1.0, 1.0);
