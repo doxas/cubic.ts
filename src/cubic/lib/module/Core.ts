@@ -9,6 +9,7 @@ export class Core {
 
   // instance properties
   canvas: HTMLCanvasElement;
+  parent?: HTMLElement | null;
   gl: WebGLRenderingContext | WebGL2RenderingContext;
   devicePixelRatio: number;
   extensions: any;
@@ -52,6 +53,12 @@ export class Core {
     if (this.gl != null) {
       this.maxTextureUnit = this.gl.getParameter(this.gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS);
       this.enableExtension();
+
+      this.parent = this.canvas.parentElement;
+      if (this.parent != null) {
+        const bound = this.parent.getBoundingClientRect();
+        this.setCanvasSize(bound.width, bound.height);
+      }
     }
   }
 
@@ -68,9 +75,18 @@ export class Core {
   }
 
   /**
+   * canvas の幅と高さを設定する
+   */
+  setCanvasSize(width: number, height: number): void {
+    if (this.canvas == null) {return;}
+    this.canvas.width = width;
+    this.canvas.height = height;
+  }
+
+  /**
    * フレームバッファをクリアする
    */
-  sceneClear(color?: Color, depth?: number, stencil?: number): void {
+  clearScene(color?: Color, depth?: number, stencil?: number): void {
     const gl = this.gl;
     let flg = gl.COLOR_BUFFER_BIT;
     if (color != null) {
@@ -90,7 +106,8 @@ export class Core {
   /**
    * ビューポートを設定する
    */
-  sceneView(x: number, y: number, width: number, height: number): void {
+  setViewport(x: number, y: number, width: number, height: number): void {
+    if (this.gl == null) {return;}
     this.gl.viewport(x, y, width, height);
   }
 
