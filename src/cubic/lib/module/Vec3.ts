@@ -2,8 +2,12 @@ export class Vec3 {
   /**
    * 3 つの要素を持つベクトルを生成する
    */
-  static create(): Float32Array {
-    return new Float32Array(3);
+  static create(x: number = 0, y: number = 0, z: number = 0): Float32Array {
+    const v = new Float32Array(3);
+    v[0] = x;
+    v[1] = y;
+    v[2] = z;
+    return v;
   }
   /**
    * ベクトルの長さ（大きさ）を返す

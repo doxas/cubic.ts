@@ -2,8 +2,11 @@ export class Vec2 {
   /**
    * 2 つの要素を持つベクトルを生成する
    */
-  static create(): Float32Array {
-    return new Float32Array(2);
+  static create(x: number = 0, y: number = 0): Float32Array {
+    const v = new Float32Array(3);
+    v[0] = x;
+    v[1] = y;
+    return v;
   }
   /**
    * ベクトルの長さ（大きさ）を返す
