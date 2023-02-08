@@ -8,7 +8,7 @@ export class Mat4 {
   /**
    * 行列を単位化する
    */
-  static ioutentity(reference?: Float32Array): Float32Array {
+  static identity(reference?: Float32Array): Float32Array {
     const out = reference ?? Mat4.create();
     out[0] = 1;
     out[1] = 0;
