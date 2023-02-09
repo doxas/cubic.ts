@@ -29,7 +29,7 @@ export class Mat4 {
     return out;
   }
   /**
-   * コピー（第二引数省略時は clone）
+   * コピー（第２引数省略時は clone）
    */
   static copy(from: Float32Array, to?: Float32Array): Float32Array {
     const out = to ?? Mat4.create();

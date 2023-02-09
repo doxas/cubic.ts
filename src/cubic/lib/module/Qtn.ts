@@ -3,10 +3,21 @@ import { Mat4 } from './Mat4';
 
 export class Qtn {
   /**
-   * 4 つの要素からなるクォータニオンのデータ構造を生成する（虚部 x, y, z, 実部 w の順序で定義）
+   * ４つの要素からなるクォータニオンのデータ構造を生成する（虚部 x, y, z, 実部 w の順序で定義）
    */
   static create(): Float32Array {
     return new Float32Array(4);
+  }
+  /**
+   * コピー（第２引数省略時は clone）
+   */
+  static copy(from: Float32Array, to?: Float32Array): Float32Array {
+    const out = to ?? Qtn.create();
+    out[0] = from[0];
+    out[1] = from[1];
+    out[2] = from[2];
+    out[3] = from[3];
+    return out;
   }
   /**
    * クォータニオンを初期化する
@@ -150,7 +161,7 @@ export class Qtn {
     return out;
   }
   /**
-   * 2 つのクォータニオンの球面線形補間を行った結果を返す
+   * ２つのクォータニオンの球面線形補間を行った結果を返す
    */
   static slerp(qtn0: Float32Array, qtn1: Float32Array, time: number, reference?: Float32Array): Float32Array {
     const out = reference ?? Qtn.create();

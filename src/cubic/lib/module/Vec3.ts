@@ -1,6 +1,6 @@
 export class Vec3 {
   /**
-   * 3 つの要素を持つベクトルを生成する
+   * ３つの要素を持つベクトルを生成する
    */
   static create(x: number = 0, y: number = 0, z: number = 0): Float32Array {
     const v = new Float32Array(3);
@@ -124,7 +124,7 @@ export class Vec3 {
     return n;
   }
   /**
-   * 3 つのベクトルから面法線を求めて返す
+   * ３つのベクトルから面法線を求めて返す
    */
   static faceNormal(v0: Float32Array, v1: Float32Array, v2: Float32Array): Float32Array {
     const n = Vec3.create();
