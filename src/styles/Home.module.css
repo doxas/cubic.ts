@@ -12,6 +12,7 @@
   position: absolute;
   top: 0px;
   left: 0px;
+  pointer-events: none;
 }
 
 .background-image {
@@ -27,4 +28,5 @@
   display: flex;
   justify-content: center;
   position: relative;
+  pointer-events: none;
 }
