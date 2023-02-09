@@ -1,5 +1,4 @@
-import { iAttributeLocation, iUniformLocation, iUniformProvider } from '../static/interface';
-import { UNIFORM_TYPE } from '../static/constant';
+import { iAttributeLocation, iUniformLocation } from '../static/interface';
 
 export class ShaderProgram {
   ready: boolean;
@@ -70,6 +69,7 @@ export class ShaderProgram {
       gl.deleteShader(vertexShader);
       gl.deleteShader(fragmentShader);
       if (gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        this.object = program;
         this.ready = true;
       } else {
         this.programLinkError = this.gl.getProgramInfoLog(program);
@@ -82,7 +82,7 @@ export class ShaderProgram {
   /**
    * ロケーションを取得する
    */
-  setupLocation(attLocation: string[], attStride: number[], uniLocation: string[], uniType: (typeof UNIFORM_TYPE)[]): void {
+  setupLocation(attLocation: string[], attStride: number[], uniLocation: string[], uniType: string[]): void {
     if (this.object == null) {
       return;
     }
@@ -155,13 +155,51 @@ export class ShaderProgram {
     const gl = this.gl;
     if (this.uniform != null) {
       this.uniform.forEach((uniform, index) => {
-        const provider = uniform.type as any as keyof iUniformProvider;
-        if (gl[provider] != null) {
-          const providerMethod = gl[provider] as Function;
-          if (uniform.type.includes('Matrix') === true) {
-            providerMethod(uniform.location, false, mixed[index]);
-          } else {
-            providerMethod(uniform.location, mixed[index]);
+        const type = uniform.type;
+        if (type.includes('Matrix') === true) {
+          switch (type) {
+            case 'uniformMatrix2fv':
+              gl.uniformMatrix2fv(uniform.location, false, mixed[index]);
+              break;
+            case 'uniformMatrix3fv':
+              gl.uniformMatrix3fv(uniform.location, false, mixed[index]);
+              break;
+            case 'uniformMatrix4fv':
+              gl.uniformMatrix4fv(uniform.location, false, mixed[index]);
+              break;
+          }
+        } else {
+          switch (type) {
+            case 'uniform1i':
+              gl.uniform1i(uniform.location, mixed[index]);
+              break;
+            case 'uniform1iv':
+              gl.uniform1iv(uniform.location, mixed[index]);
+              break;
+            case 'uniform1f':
+              gl.uniform1f(uniform.location, mixed[index]);
+              break;
+            case 'uniform1fv':
+              gl.uniform1fv(uniform.location, mixed[index]);
+              break;
+            case 'uniform2iv':
+              gl.uniform2iv(uniform.location, mixed[index]);
+              break;
+            case 'uniform2fv':
+              gl.uniform2fv(uniform.location, mixed[index]);
+              break;
+            case 'uniform3iv':
+              gl.uniform3iv(uniform.location, mixed[index]);
+              break;
+            case 'uniform3fv':
+              gl.uniform3fv(uniform.location, mixed[index]);
+              break;
+            case 'uniform4iv':
+              gl.uniform4iv(uniform.location, mixed[index]);
+              break;
+            case 'uniform4fv':
+              gl.uniform4fv(uniform.location, mixed[index]);
+              break;
           }
         }
       });

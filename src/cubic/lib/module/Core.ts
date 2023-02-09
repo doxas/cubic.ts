@@ -1,5 +1,4 @@
-import { iCubicOption, iFramebuffer } from '../static/interface';
-import { UNIFORM_TYPE } from '../static/constant';
+import { iCubicOption, iFramebuffer, iWebGLGlobalState } from '../static/interface';
 import { ShaderProgram } from './ShaderProgram';
 import { Color } from './Color';
 
@@ -101,6 +100,36 @@ export class Core {
       flg = flg | gl.STENCIL_BUFFER_BIT;
     }
     gl.clear(flg);
+  }
+
+  /**
+   * 特定のステートを有効にする
+   */
+  enableState(target: iWebGLGlobalState): void {
+    if (this.gl == null) {return;}
+    this.gl.enable(target);
+  }
+
+  /**
+   * 特定のステートを無効にする
+   */
+  disableState(target: iWebGLGlobalState): void {
+    if (this.gl == null) {return;}
+    this.gl.disable(target);
+  }
+
+  /**
+   * バックフェイスカリングの有効・無効を設定する
+   */
+  setBackfaceCulling(flag: boolean): void {
+    flag === true ? this.enableState(this.gl.CULL_FACE) : this.disableState(this.gl.CULL_FACE);
+  }
+
+  /**
+   * バックフェイスカリングの有効・無効を設定する
+   */
+  setDepthTest(flag: boolean): void {
+    flag === true ? this.enableState(this.gl.DEPTH_TEST) : this.disableState(this.gl.DEPTH_TEST);
   }
 
   /**
@@ -362,11 +391,21 @@ export class Core {
   /**
    * シェーダのソースコード文字列からプログラムオブジェクトを生成する
    */
-  createProgramFromSource(vs: string, fs: string, attLocation: string[], attStride: number[], uniLocation: string[], uniType: (typeof UNIFORM_TYPE)[]): ShaderProgram {
+  createProgramFromSource(vs: string, fs: string, attLocation: string[], attStride: number[], uniLocation: string[], uniType: string[]): ShaderProgram {
     const program = new ShaderProgram(this.gl, this.isWebGL2);
     const isReady = program.attachShader(vs, fs);
     if (isReady === true) {
       program.setupLocation(attLocation, attStride, uniLocation, uniType);
+    } else {
+      if (program.vertexShaderError != null) {
+        console.error('cubic.ts: ', program.vertexShaderError);
+      }
+      if (program.fragmentShaderError != null) {
+        console.error('cubic.ts: ', program.fragmentShaderError);
+      }
+      if (program.programLinkError != null) {
+        console.error('cubic.ts: ', program.programLinkError);
+      }
     }
     return program;
   }
