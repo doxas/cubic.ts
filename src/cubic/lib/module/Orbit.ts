@@ -1,10 +1,10 @@
-import { Vec2 } from "./Vec2";
-import { Vec3 } from "./Vec3";
-import { Mat4 } from "./Mat4";
-import { Qtn } from "./Qtn";
+import { Vec2 } from './Vec2';
+import { Vec3 } from './Vec3';
+import { Mat4 } from './Mat4';
+import { Qtn } from './Qtn';
 
-import { ORBIT_DEFAULT_DISTANCE, ORBIT_DEFAULT_MIN_DISTANCE, ORBIT_DEFAULT_MAX_DISTANCE, ORBIT_DEFAULT_MOVE_SCALE } from "../static/constant";
-import { iOrbitOption } from "../static/interface";
+import { ORBIT_DEFAULT_DISTANCE, ORBIT_DEFAULT_MIN_DISTANCE, ORBIT_DEFAULT_MAX_DISTANCE, ORBIT_DEFAULT_MOVE_SCALE } from '../static/constant';
+import { iOrbitOption } from '../static/interface';
 
 export class Orbit {
   target: HTMLElement;
@@ -66,9 +66,13 @@ export class Orbit {
     this.target.addEventListener('pointermove', this.pointerInteractionMove, false);
     this.target.addEventListener('pointerup', this.pointerInteractionEnd, false);
     this.target.addEventListener('wheel', this.wheelScroll, false);
-    this.target.addEventListener('contextmenu', (event) => {
-      event.preventDefault();
-    }, false);
+    this.target.addEventListener(
+      'contextmenu',
+      (event) => {
+        event.preventDefault();
+      },
+      false
+    );
   }
   /**
    * ボタンが押された際のイベント
@@ -76,26 +80,22 @@ export class Orbit {
   pointerInteractionStart(evt: PointerEvent): void {
     this.isDown = true;
     const bound = this.target.getBoundingClientRect();
-    this.prevPosition = Vec2.create(
-      evt.clientX - bound.left,
-      evt.clientY - bound.top,
-    );
+    this.prevPosition = Vec2.create(evt.clientX - bound.left, evt.clientY - bound.top);
   }
   /**
    * ポインターが移動した際のイベント
    */
   pointerInteractionMove(evt: PointerEvent): void {
-    if (this.isDown !== true) { return; }
+    if (this.isDown !== true) {
+      return;
+    }
     const bound = this.target.getBoundingClientRect();
     const w = bound.width;
     const h = bound.height;
     const x = evt.clientX - bound.left;
     const y = evt.clientY - bound.top;
     const s = 1.0 / Math.min(w, h);
-    this.offsetPosition = Vec2.create(
-      x - this.prevPosition[0],
-      y - this.prevPosition[1],
-    );
+    this.offsetPosition = Vec2.create(x - this.prevPosition[0], y - this.prevPosition[1]);
     this.prevPosition = Vec2.create(x, y);
     switch (evt.buttons) {
       case 1:
@@ -107,11 +107,7 @@ export class Orbit {
         break;
       case 2:
         // 右ボタン
-        const eyeOffset = Vec3.create(
-          this.offsetPosition[0],
-          -this.offsetPosition[1],
-          0.0,
-        );
+        const eyeOffset = Vec3.create(this.offsetPosition[0], -this.offsetPosition[1], 0.0);
         const rotateEye = Qtn.toVecIII(eyeOffset, this.qt);
         this.movePosition[0] -= rotateEye[0] * s * this.moveScale;
         this.movePosition[1] -= rotateEye[1] * s * this.moveScale;
@@ -155,7 +151,7 @@ export class Orbit {
     Qtn.rotate(this.rotateX * PI2, u, this.qtx);
     Qtn.toVecIII(v, this.qtx, v);
     Qtn.rotate(this.rotateY * PI2, v, this.qty);
-    Qtn.multiply(this.qtx, this.qty, this.qt)
+    Qtn.multiply(this.qtx, this.qty, this.qt);
     Qtn.toVecIII(this.defaultPosition, this.qt, this.position);
     Qtn.toVecIII(this.defaultUpDirection, this.qt, this.upDirection);
     // translate
@@ -169,4 +165,3 @@ export class Orbit {
     return Mat4.lookAt(this.position, this.center, this.upDirection);
   }
 }
-

@@ -51,12 +51,18 @@ export default function Cubic(props: iCubicProps): JSX.Element {
     gl3.setDepthTest(true);
 
     const eventSetting = () => {
-      window.addEventListener('resize', () => {
-        if (gl3.parent == null) {return;}
-        const b = gl3.parent.getBoundingClientRect();
-        gl3.setCanvasSize(b.width, b.height);
-        perspective.aspect = b.width / b.height;
-      }, false);
+      window.addEventListener(
+        'resize',
+        () => {
+          if (gl3.parent == null) {
+            return;
+          }
+          const b = gl3.parent.getBoundingClientRect();
+          gl3.setCanvasSize(b.width, b.height);
+          perspective.aspect = b.width / b.height;
+        },
+        false
+      );
     };
 
     const render = () => {
