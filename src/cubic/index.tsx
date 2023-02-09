@@ -1,6 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { clearScreenDown } from 'readline';
-import { disposeEmitNodes } from 'typescript';
 import GL3 from './lib/Cubic';
 import { iCubicProps } from './lib/static/interface';
 
@@ -47,7 +45,7 @@ export default function Cubic(props: iCubicProps): JSX.Element {
     const ibo = gl3.createIbo(torus.index);
 
     // setup
-    gl3.setBackfaceCulling(true);
+    gl3.setFaceCulling(true);
     gl3.setDepthTest(true);
 
     const eventSetting = () => {

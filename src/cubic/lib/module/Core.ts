@@ -127,7 +127,7 @@ export class Core {
   /**
    * バックフェイスカリングの有効・無効を設定する
    */
-  setBackfaceCulling(flag: boolean): void {
+  setFaceCulling(flag: boolean): void {
     flag === true ? this.enableState(this.gl.CULL_FACE) : this.disableState(this.gl.CULL_FACE);
   }
 
@@ -136,6 +136,13 @@ export class Core {
    */
   setDepthTest(flag: boolean): void {
     flag === true ? this.enableState(this.gl.DEPTH_TEST) : this.disableState(this.gl.DEPTH_TEST);
+  }
+
+  /**
+   * カリング面の向きを設定する
+   */
+  setCullFaceBack(flag: boolean): void {
+    flag === true ? this.gl.cullFace(this.gl.BACK) : this.disableState(this.gl.FRONT);
   }
 
   /**
