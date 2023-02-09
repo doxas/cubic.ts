@@ -11,6 +11,13 @@ export interface iCubicOption {
   devicePixelRatio?: number;
 }
 
+export interface iOrbitOption {
+  distance?: number;
+  min?: number;
+  max?: number;
+  move?: number;
+}
+
 export interface iColorFloat {
   r: number;
   g: number;

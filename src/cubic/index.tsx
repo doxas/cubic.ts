@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
 import GL3 from './lib/Cubic';
+import { Orbit } from './lib/module/Orbit';
 import { iCubicProps } from './lib/static/interface';
 
-import vertexShaderSource from '../shader/main.vert';
-import fragmentShaderSource from '../shader/main.frag';
+import vertexShaderSource from '@/shader/main.vert';
+import fragmentShaderSource from '@/shader/main.frag';
 
 export default function Cubic(props: iCubicProps): JSX.Element {
   const canvasReference = useRef<HTMLCanvasElement>(null);
@@ -12,6 +13,7 @@ export default function Cubic(props: iCubicProps): JSX.Element {
     const canvas = canvasReference.current as HTMLCanvasElement;
     const gl3 = new GL3.Core(canvas);
     const timer = new GL3.Timer();
+    const camera = new Orbit(canvas);
 
     const clearColor = new GL3.Color(1.0, 0.0, 1.0, 1.0);
     const torus = GL3.Geometry.torus(64, 64, 0.3, 0.7);
@@ -23,13 +25,12 @@ export default function Cubic(props: iCubicProps): JSX.Element {
       mvp: GL3.Mat4.create(),
       normal: GL3.Mat4.create(),
     };
-    const cameraPosition = GL3.Vec3.create(0.0, 0.0, 5.0);
-    const cameraCenter = GL3.Vec3.create(0.0, 0.0, 0.0);
-    const cameraUpDirection = GL3.Vec3.create(0.0, 1.0, 0.0);
-    const fovy = 45;
-    const aspect = canvas.width / canvas.height;
-    const near = 0.1;
-    const far = 10.0;
+    const perspective = {
+      fovy: 45,
+      aspect: canvas.width / canvas.height,
+      near: 0.1,
+      far: 10.0,
+    };
 
     // create program
     const attLocation = ['position', 'normal'];
@@ -50,7 +51,12 @@ export default function Cubic(props: iCubicProps): JSX.Element {
     gl3.setDepthTest(true);
 
     const eventSetting = () => {
-      // events
+      window.addEventListener('resize', () => {
+        if (gl3.parent == null) {return;}
+        const b = gl3.parent.getBoundingClientRect();
+        gl3.setCanvasSize(b.width, b.height);
+        perspective.aspect = b.width / b.height;
+      }, false);
     };
 
     const render = () => {
@@ -61,7 +67,9 @@ export default function Cubic(props: iCubicProps): JSX.Element {
 
       GL3.Mat4.identity(mat.m);
       GL3.Mat4.rotate(mat.m, timer.pass(), GL3.Vec3.create(1.0, 1.0, 0.0), mat.m);
-      GL3.Mat4.vpFromCameraProperty(cameraPosition, cameraCenter, cameraUpDirection, fovy, aspect, near, far, mat.v, mat.p, mat.vp);
+      mat.v = camera.update();
+      GL3.Mat4.perspective(perspective.fovy, perspective.aspect, perspective.near, perspective.far, mat.p);
+      GL3.Mat4.multiply(mat.p, mat.v, mat.vp);
       GL3.Mat4.multiply(mat.vp, mat.m, mat.mvp);
       GL3.Mat4.transpose(GL3.Mat4.inverse(mat.m), mat.normal);
 
