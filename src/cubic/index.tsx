@@ -11,9 +11,10 @@ export default function Cubic(props: iCubicProps): JSX.Element {
   useEffect(() => {
     const canvas = canvasReference.current as HTMLCanvasElement;
     const gl3 = new GL3.Core(canvas);
+    const timer = new GL3.Timer();
 
     const clearColor = new GL3.Color(1.0, 0.0, 1.0, 1.0);
-    const torus = GL3.Geometry.torus(64, 64, 0.25, 0.75);
+    const torus = GL3.Geometry.torus(64, 64, 0.3, 0.7);
     const mat = {
       m: GL3.Mat4.create(),
       v: GL3.Mat4.create(),
@@ -59,6 +60,7 @@ export default function Cubic(props: iCubicProps): JSX.Element {
       gl3.setViewport(0, 0, canvas.width, canvas.height);
 
       GL3.Mat4.identity(mat.m);
+      GL3.Mat4.rotate(mat.m, timer.pass(), GL3.Vec3.create(1.0, 1.0, 0.0), mat.m);
       GL3.Mat4.vpFromCameraProperty(cameraPosition, cameraCenter, cameraUpDirection, fovy, aspect, near, far, mat.v, mat.p, mat.vp);
       GL3.Mat4.multiply(mat.vp, mat.m, mat.mvp);
       GL3.Mat4.transpose(GL3.Mat4.inverse(mat.m), mat.normal);

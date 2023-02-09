@@ -6,6 +6,7 @@ import { Mat4 } from './module/Mat4';
 import { Qtn } from './module/Qtn';
 import { Geometry } from './module/Geometry';
 import { Color } from './module/Color';
+import { Timer } from './module/Timer';
 
 export default class GL3 {
   static get VERSION(): string {
@@ -34,5 +35,8 @@ export default class GL3 {
   }
   static get Color() {
     return Color;
+  }
+  static get Timer() {
+    return Timer;
   }
 }
