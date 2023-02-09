@@ -29,6 +29,29 @@ export class Mat4 {
     return out;
   }
   /**
+   * コピー（第二引数省略時は clone）
+   */
+  static copy(from: Float32Array, to?: Float32Array): Float32Array {
+    const out = to ?? Mat4.create();
+    out[0] = from[0];
+    out[1] = from[1];
+    out[2] = from[2];
+    out[3] = from[3];
+    out[4] = from[4];
+    out[5] = from[5];
+    out[6] = from[6];
+    out[7] = from[7];
+    out[8] = from[8];
+    out[9] = from[9];
+    out[10] = from[10];
+    out[11] = from[11];
+    out[12] = from[12];
+    out[13] = from[13];
+    out[14] = from[14];
+    out[15] = from[15];
+    return out;
+  }
+  /**
    * 行列を乗算する
    */
   static multiply(mat0: Float32Array, mat1: Float32Array, reference?: Float32Array): Float32Array {

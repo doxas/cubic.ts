@@ -10,13 +10,77 @@ export class Vec3 {
     return v;
   }
   /**
+   * 要素に値を設定する
+   */
+  static set(v: Float32Array, x: number = 0, y: number = 0, z: number = 0): Float32Array {
+    v[0] = x;
+    v[1] = y;
+    v[2] = z;
+    return v;
+  }
+  /**
+   * 要素に値を設定する
+   */
+  static setScalar(v: Float32Array, f: number = 0): Float32Array {
+    v[0] = f;
+    v[1] = f;
+    v[2] = f;
+    return v;
+  }
+  /**
+   * コピー（第２引数省略時は clone）
+   */
+  static copy(from: Float32Array, to?: Float32Array): Float32Array {
+    const out = to ?? Vec3.create();
+    out[0] = from[0];
+    out[1] = from[1];
+    out[2] = from[2];
+    return out;
+  }
+  /**
+   * 要素同士を加算する
+   */
+  static add(v0: Float32Array, v1: Float32Array): Float32Array {
+    v0[0] += v1[0];
+    v0[1] += v1[1];
+    v0[2] += v1[2];
+    return v0;
+  }
+  /**
+   * 要素同士を減算する
+   */
+  static sub(v0: Float32Array, v1: Float32Array): Float32Array {
+    v0[0] -= v1[0];
+    v0[1] -= v1[1];
+    v0[2] -= v1[2];
+    return v0;
+  }
+  /**
+   * 要素同士を乗算する
+   */
+  static mul(v0: Float32Array, v1: Float32Array): Float32Array {
+    v0[0] *= v1[0];
+    v0[1] *= v1[1];
+    v0[2] *= v1[2];
+    return v0;
+  }
+  /**
+   * 要素同士を除算する
+   */
+  static div(v0: Float32Array, v1: Float32Array): Float32Array {
+    v0[0] /= v1[0];
+    v0[1] /= v1[1];
+    v0[2] /= v1[2];
+    return v0;
+  }
+  /**
    * ベクトルの長さ（大きさ）を返す
    */
   static len(v: Float32Array): number {
     return Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
   }
   /**
-   * 2 つの座標（始点・終点）を結ぶベクトルを返す
+   * ２つの座標（始点・終点）を結ぶベクトルを返す
    */
   static distance(v0: Float32Array, v1: Float32Array): Float32Array {
     const n = Vec3.create();
@@ -44,13 +108,13 @@ export class Vec3 {
     return n;
   }
   /**
-   * 2 つのベクトルの内積の結果を返す
+   * ２つのベクトルの内積の結果を返す
    */
   static dot(v0: Float32Array, v1: Float32Array): number {
     return v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2];
   }
   /**
-   * 2 つのベクトルの外積の結果を返す
+   * ２つのベクトルの外積の結果を返す
    */
   static cross(v0: Float32Array, v1: Float32Array): Float32Array {
     const n = Vec3.create();
