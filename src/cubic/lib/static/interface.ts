@@ -42,12 +42,13 @@ export interface iUniformLocation {
   type: string;
 }
 
-export type iWebGLGlobalState = WebGLRenderingContext['BLEND'] |
-  WebGLRenderingContext['CULL_FACE'] |
-  WebGLRenderingContext['DEPTH_TEST'] |
-  WebGLRenderingContext['DITHER'] |
-  WebGLRenderingContext['POLYGON_OFFSET_FILL'] |
-  WebGLRenderingContext['SAMPLE_ALPHA_TO_COVERAGE'] |
-  WebGLRenderingContext['SAMPLE_COVERAGE'] |
-  WebGLRenderingContext['SCISSOR_TEST'] |
-  WebGLRenderingContext['STENCIL_TEST'];
+export type iWebGLGlobalState =
+  | WebGLRenderingContext['BLEND']
+  | WebGLRenderingContext['CULL_FACE']
+  | WebGLRenderingContext['DEPTH_TEST']
+  | WebGLRenderingContext['DITHER']
+  | WebGLRenderingContext['POLYGON_OFFSET_FILL']
+  | WebGLRenderingContext['SAMPLE_ALPHA_TO_COVERAGE']
+  | WebGLRenderingContext['SAMPLE_COVERAGE']
+  | WebGLRenderingContext['SCISSOR_TEST']
+  | WebGLRenderingContext['STENCIL_TEST'];

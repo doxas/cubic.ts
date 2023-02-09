@@ -77,7 +77,9 @@ export class Core {
    * canvas の幅と高さを設定する
    */
   setCanvasSize(width: number, height: number): void {
-    if (this.canvas == null) {return;}
+    if (this.canvas == null) {
+      return;
+    }
     this.canvas.width = width;
     this.canvas.height = height;
   }
@@ -106,7 +108,9 @@ export class Core {
    * 特定のステートを有効にする
    */
   enableState(target: iWebGLGlobalState): void {
-    if (this.gl == null) {return;}
+    if (this.gl == null) {
+      return;
+    }
     this.gl.enable(target);
   }
 
@@ -114,7 +118,9 @@ export class Core {
    * 特定のステートを無効にする
    */
   disableState(target: iWebGLGlobalState): void {
-    if (this.gl == null) {return;}
+    if (this.gl == null) {
+      return;
+    }
     this.gl.disable(target);
   }
 
@@ -136,7 +142,9 @@ export class Core {
    * ビューポートを設定する
    */
   setViewport(x: number, y: number, width: number, height: number): void {
-    if (this.gl == null) {return;}
+    if (this.gl == null) {
+      return;
+    }
     this.gl.viewport(x, y, width, height);
   }
 

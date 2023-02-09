@@ -37,14 +37,7 @@ export default function Cubic(props: iCubicProps): JSX.Element {
     const attStride = [3, 3];
     const uniLocation = ['mvpMatrix', 'normalMatrix'];
     const uniType = ['uniformMatrix4fv', 'uniformMatrix4fv'];
-    const prg = gl3.createProgramFromSource(
-      vertexShaderSource,
-      fragmentShaderSource,
-      attLocation,
-      attStride,
-      uniLocation,
-      uniType
-    );
+    const prg = gl3.createProgramFromSource(vertexShaderSource, fragmentShaderSource, attLocation, attStride, uniLocation, uniType);
     if (prg.ready !== true) {
       console.log('😇😇😇');
     }
@@ -88,7 +81,10 @@ export default function Cubic(props: iCubicProps): JSX.Element {
 
   return (
     <>
-      <canvas ref={canvasReference} className={props.className}></canvas>
+      <canvas
+        ref={canvasReference}
+        className={props.className}
+      ></canvas>
     </>
   );
 }
