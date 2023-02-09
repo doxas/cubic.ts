@@ -16,6 +16,7 @@
 
 .background-image {
   object-fit: cover;
+  display: none;
 }
 
 .layer {
