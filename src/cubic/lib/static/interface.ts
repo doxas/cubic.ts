@@ -1,5 +1,4 @@
 import React from 'react';
-import { UNIFORM_TYPE } from './constant';
 
 export interface iCubicProps {
   children?: React.ReactNode;
@@ -40,27 +39,15 @@ export interface iAttributeLocation {
 
 export interface iUniformLocation {
   location: WebGLUniformLocation | null;
-  type: typeof UNIFORM_TYPE;
+  type: string;
 }
 
-export interface iUniformProvider {
-  uniform1i: (w: WebGLUniformLocation, v: any) => {};
-  uniform1iv: (w: WebGLUniformLocation, v: any) => {};
-  uniform1f: (w: WebGLUniformLocation, v: any) => {};
-  uniform1fv: (w: WebGLUniformLocation, v: any) => {};
-  uniform2i: (w: WebGLUniformLocation, v: any) => {};
-  uniform2iv: (w: WebGLUniformLocation, v: any) => {};
-  uniform2f: (w: WebGLUniformLocation, v: any) => {};
-  uniform2fv: (w: WebGLUniformLocation, v: any) => {};
-  uniform3i: (w: WebGLUniformLocation, v: any) => {};
-  uniform3iv: (w: WebGLUniformLocation, v: any) => {};
-  uniform3f: (w: WebGLUniformLocation, v: any) => {};
-  uniform3fv: (w: WebGLUniformLocation, v: any) => {};
-  uniform4i: (w: WebGLUniformLocation, v: any) => {};
-  uniform4iv: (w: WebGLUniformLocation, v: any) => {};
-  uniform4f: (w: WebGLUniformLocation, v: any) => {};
-  uniform4fv: (w: WebGLUniformLocation, v: any) => {};
-  uniformMatrix2fv: (w: WebGLUniformLocation, t: boolean, v: any) => {};
-  uniformMatrix3fv: (w: WebGLUniformLocation, t: boolean, v: any) => {};
-  uniformMatrix4fv: (w: WebGLUniformLocation, t: boolean, v: any) => {};
-}
+export type iWebGLGlobalState = WebGLRenderingContext['BLEND'] |
+  WebGLRenderingContext['CULL_FACE'] |
+  WebGLRenderingContext['DEPTH_TEST'] |
+  WebGLRenderingContext['DITHER'] |
+  WebGLRenderingContext['POLYGON_OFFSET_FILL'] |
+  WebGLRenderingContext['SAMPLE_ALPHA_TO_COVERAGE'] |
+  WebGLRenderingContext['SAMPLE_COVERAGE'] |
+  WebGLRenderingContext['SCISSOR_TEST'] |
+  WebGLRenderingContext['STENCIL_TEST'];
